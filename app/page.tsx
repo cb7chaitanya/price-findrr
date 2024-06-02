@@ -1,7 +1,7 @@
 import Search from '@/components/SearchBar'
 import React from 'react'
 
-const page = () => {
+const page = async () => {
   return (
     <div className='w-full h-screen bg-[#0B1120]'>
       <div className='max-w-full max-h-[100%] flex flex-col justify-center items-center text-white relative z-10'>

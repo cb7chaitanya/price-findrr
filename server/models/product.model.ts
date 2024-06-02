@@ -13,15 +13,15 @@ const productSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    title: { 
+    productTitle: { 
         type: String, 
         required: true 
     },
-    currentPrice: { 
+    current_price: { 
         type: Number, 
         required: true 
     },
-    originalPrice: { 
+    original_price: { 
         type: Number, 
         required: true 
     },
@@ -46,12 +46,15 @@ const productSchema = new mongoose.Schema({
     description: { 
         type: String 
     },
-    reviewCount: { 
+    rating: { 
         type: Number 
     },
-    stockStatus: { 
+    outOfStock: { 
         type: Boolean, 
         default: false 
+    },
+    category: {
+        type: String
     },
     users: [
         {
@@ -60,9 +63,8 @@ const productSchema = new mongoose.Schema({
                 required: true
             }
         }
-    ], default: []
+    ], default: [],
 }, { timestamps: true });
 
-const Product = mongoose.model("Product", productSchema);
+export const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 
-export default Product;

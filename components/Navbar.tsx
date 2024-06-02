@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { FaFireFlameCurved } from "react-icons/fa6";
-import { FiUser } from "react-icons/fi";
 import Button from './Button';
 
 const Navbar = () => {
@@ -18,7 +17,6 @@ const Navbar = () => {
             <span className='ml-2 text-xl md:text-2xl font-semibold tracking-tight'>Price Findrr</span></Link>
             <div className='flex items-center gap-5 p-4'>
               <Button children={<FaFireFlameCurved className='text-xl md:text-2xl font-semibold'/>} navigate='/trending'></Button>
-              <Button children={<FiUser className='text-xl md:text-2xl font-semibold'/>}navigate='/profile'></Button>
             </div>
         </nav>
     </header>

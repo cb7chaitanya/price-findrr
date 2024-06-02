@@ -1,8 +1,8 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import { getPrice, getCurrency, getDescription } from '../utils';
+import { getPrice, getCurrency, getDescription, getRating, getCategory } from '../utils';
 
-export async function scrapeProduct(productUrl: string) {
+export async function scrapeProduct(productUrl: string): Promise<any> {
     if(!productUrl) {
         return;
     }
@@ -43,14 +43,37 @@ export async function scrapeProduct(productUrl: string) {
 
         const currency = getCurrency($('.a-price-symbol'))
         
-        const discount = $('.savingsPercentage').text().trim().replace(/[-%]/g, '')
+        const discount = $('span.savingPriceOverride ').text().trim().replace(/[-%]/g, '')
 
         const description = getDescription(
             $('#featurebullets_feature_div'),
             $('span.a-list-item')
         )
+        
+        const rating = getRating(
+            $('#averageCustomerReviews'),
+            $('span.a-color-base')
+        )
 
-        console.log({title, currPrice, originalPrice, stockCheck, imageUrls, currency, discount, description})
+        const category = getCategory(
+            $('.nav-a.nav-b')
+        )
+        const data = {
+            url: productUrl,
+            productTitle: title,
+            current_price: Number(currPrice),
+            original_price: Number(originalPrice),
+            price_history: [],
+            outOfStock: stockCheck,
+            image: imageUrls[0],
+            currency: currency || '₹',
+            discountRate: Number(discount),
+            description, 
+            rating: Number(rating[0]+rating[1]+rating[2]),
+            category: category
+        }
+        return data
+        
     } catch(e: any){
         throw new Error(`Scraping failed: ${e.message}`)
     }

@@ -22,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="max-w-10xl h-auto mx-auto bg-[#0B1120] font-spaceGrotesk overflow-x-hidden">
           <Navbar />
-          <BackgroundGradientAnimation gradientBackgroundStart="#0B1120" gradientBackgroundEnd="#0B1120" firstColor="11, 17, 32"  pointerColor="255, 255, 255" children={children} />
+          <div>
+            {children}
+          </div>
         </main>
       </body>
     </html>
