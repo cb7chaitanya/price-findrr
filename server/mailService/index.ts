@@ -79,7 +79,8 @@ export const setEmailBody = async (product: {productTitle: string, url: string},
 const transporter = nodemailer.createTransport({
     pool: true,
     service: 'hotmail',
-    port: 2525,
+    port: 587,
+    host: 'smtp-mail.outlook.com',
     auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
