@@ -16,7 +16,7 @@ const Navbar = () => {
             />
             <span className='ml-2 text-xl md:text-2xl font-semibold tracking-tight'>Price Findrr</span></Link>
             <div className='flex items-center gap-5 p-4'>
-              <Button children={<FaFireFlameCurved className='text-xl md:text-2xl font-semibold'/>} navigate='/trending'></Button>
+              <Button label={<FaFireFlameCurved className='text-xl md:text-2xl font-semibold'/>} navigate='/trending'></Button>
             </div>
         </nav>
     </header>

@@ -4,14 +4,14 @@ import React from 'react'
 
 interface ButtonProps {
     navigate? : string | string
-    children?: React.ReactNode
+    label?: React.ReactNode
     className?: string
 }
 
-const Button = ({navigate, children, className} : ButtonProps) => {
+const Button = ({navigate, label, className} : ButtonProps) => {
   return (
     <Link href={navigate ? navigate : ''}><button className={`${className} p-1`}>
-        {children}
+        {label}
     </button></Link>
   )
 }
