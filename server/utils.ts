@@ -1,3 +1,12 @@
+const Type = {
+    WELCOME: 'WELCOME',
+    STOCK: 'STOCK_UPDATE',
+    LOWEST_PRICE: 'LOWEST_PRICE',
+    THRESHOLD: 'THRESHOLD_MET'
+}
+
+const THRESHOLD = 30
+
 export function getPrice(...elements:any) {
     for(const element of elements) {
         const price = element.text().trim()
@@ -63,4 +72,25 @@ export const getAveragePrice = (priceHistory:Array<{price:number}>) => {
         total += priceHistory[i].price
     }
     return total / priceHistory.length
+}
+
+export const emailRemindType = (
+    scrapedProduct: any,
+    currentProduct: any
+) => {
+    const lowestPrice = getLowestPrice(currentProduct.priceHistory)
+
+    if(scrapedProduct.current_price < lowestPrice) {
+        return Type.LOWEST_PRICE as keyof typeof Type
+    }
+
+    if(!scrapedProduct.outOfStock && currentProduct.outOfStock){
+        return Type.STOCK as keyof typeof Type
+    }
+
+    if(scrapedProduct.discountRate >= THRESHOLD) {
+        return Type.THRESHOLD as keyof typeof Type
+    }
+
+
 }

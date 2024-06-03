@@ -73,7 +73,6 @@ export async function scrapeProduct(productUrl: string): Promise<any> {
             category: category
         }
         return data
-        
     } catch(e: any){
         throw new Error(`Scraping failed: ${e.message}`)
     }

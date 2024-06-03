@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
             date: { type: Date, required: true }
         }
     ],
-    discount: { 
+    discountRate: { 
         type: Number 
     },
     description: { 

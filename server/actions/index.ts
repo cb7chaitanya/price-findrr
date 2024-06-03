@@ -5,6 +5,7 @@ import {Product} from "../models/product.model";
 import { getLowestPrice, getHighestPrice, getAveragePrice } from "../utils";
 import { revalidatePath } from "next/cache";
 import { setEmailBody, sendEmail } from "../mailService";
+import { redirect } from "next/navigation";
 
 export async function scraper(productUrl: string) {
     if(!productUrl) {
@@ -17,7 +18,7 @@ export async function scraper(productUrl: string) {
             return;
         }
         let product = scrapeRes
-        const isExisting = await Product.findOne({url: scrapeRes.url})  
+        var isExisting = await Product.findOne({url: scrapeRes.url})  
         
         if(isExisting) {
             const newPriceHistory = [
@@ -34,16 +35,16 @@ export async function scraper(productUrl: string) {
             }
         }
 
-        const newProduct = await Product.findOneAndUpdate(
+        var newProduct = await Product.findOneAndUpdate(
             {url: scrapeRes.url},
             product,
             {upsert: true, new: true}
         );
-
-        revalidatePath(`/products/${newProduct._id}`);
+        revalidatePath(`/product/${newProduct._id}`);
     } catch(err: any){
         throw new Error(`Scraping failed: ${err}`)
     }
+    isExisting ? redirect(`/product/${isExisting._id}`) : redirect(`/product/${newProduct._id}`)
 }
 
 export async function getProduct(productId: string) {

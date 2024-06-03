@@ -1,6 +1,7 @@
 "use client"
 import { FormEvent, useState } from "react"
 import { scraper } from "../server/actions/index"
+import { toast } from "react-toastify"
 
 const Search = () => {
   const [search, setSearch] = useState('')
@@ -24,7 +25,7 @@ const Search = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const pass = urlValidator(search)
-    pass ? alert("Valid URL") : alert("Invalid URL")
+    pass ? toast.success("Valid URL") : toast.error("Invalid URL")
     try {
       setLoading(true)
       const product = await scraper(search)

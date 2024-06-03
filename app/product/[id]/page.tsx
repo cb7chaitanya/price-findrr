@@ -9,7 +9,7 @@ import { CiStar } from "react-icons/ci";
 import { MdCategory } from "react-icons/md";
 import { RiShareForwardBoxFill } from "react-icons/ri";
 import Link from 'next/link';
-import { ProductCard } from '@/components/product-card';
+import { PiGhostBold } from "react-icons/pi";
 import { SimilarProductCard } from '@/components/similar-product-card';
 import { DialogModal } from '@/components/dialog';
 interface pageProps {
@@ -22,14 +22,14 @@ const page = async ({ params: {id} } : pageProps) => {
     if(!product) {
         redirect('/')
     }
-
+    const substring = product.productTitle.substring(0,40)
     const similarProduct = await getSimilar(id)
     console.log(product)
   return (
     <div className='w-full min-h-screen bg-[#0B1120] text-white'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 flex-wrap px-6 md:px-20 py-24'>
            <h1 className='text-xl md:text-3xl font-bold col-span-1'>
-            {product.productTitle}
+            {product.productTitle === substring ? product.productTitle : substring+"..."}
            </h1>
            <div className='col-span-1 flex gap-4 p-3'>
                 <div className='text-md p-2 text-slate-300 font-extralight flex items-center gap-2 border rounded-xl border-zinc-600 hover:bg-zinc-900/90 duration-200'>
@@ -61,15 +61,20 @@ const page = async ({ params: {id} } : pageProps) => {
                 <p className='text-slate-300 font-extralight flex items-center justify-center p-4'>{product.description}</p>
             </div>
         </div>
-        <div>
+        <div className="mb-16">
             <h1 className='text-xl md:text-3xl font-semibold flex max-w-[90%] mx-auto mt-8'>Similar Products</h1>
-            {similarProduct && similarProduct?.length > 0 && (
+            {similarProduct && similarProduct?.length > 0 ? (
                 <div className='flex my-4 max-w-[90%] mx-auto'>
                     {similarProduct?.map((product, index) => (
                         <SimilarProductCard product={product} key={index}/>
                     ))}
+                </div>)
+            : (<div className='flex flex-col items-center p-4'>
+                <div className='text-slate-300 font-extralight flex items-center justify-center gap-4 p-4'>
+                <PiGhostBold className="w-8 h-8 md:w-16 md:h-16 text-zinc-400" />
+                <h1 className='text-md md:text-xl sm:text-lg text-zinc-400'>No similar product till now...</h1>
                 </div>
-            )}
+            </div>)}
         </div>
     </div>
   )
