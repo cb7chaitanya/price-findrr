@@ -5,8 +5,8 @@ import { MdOutlineMail } from "react-icons/md";
 import { CiInboxIn } from "react-icons/ci";
 import { FormEvent, useState } from "react";
 import { setEmail } from "@/server/actions";
-import { useParams } from "next/navigation";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export function DialogModal({id} : {id: string}) {
   const [loading, setLoading] = useState(false)
   const [emailInput, setEmailInput] = useState("")
@@ -14,11 +14,13 @@ export function DialogModal({id} : {id: string}) {
     e.preventDefault()
     setLoading(true)
     setEmail(id, emailInput)
+    toast.success("Tracking...")
     setLoading(false)
     setEmailInput("")
   }
   return (
     <Dialog>
+      <ToastContainer />
       <DialogTrigger asChild>
         <Button className="inline-flex h-10 w-3/4 items-center justify-center rounded-md bg-zinc-800 px-8 text-md font-semibold text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50">
           Track 

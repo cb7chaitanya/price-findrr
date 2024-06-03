@@ -1,6 +1,7 @@
 "use server"
 
 import nodemailer from 'nodemailer'
+import { toast } from "react-toastify";
 
 const Type = {
     WELCOME: 'WELCOME',
