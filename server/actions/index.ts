@@ -61,7 +61,7 @@ export async function getProduct(productId: string) {
 
 export async function getAllProducts(){
     try{
-        
+        revalidatePath('/trending')
         connect()
         const products = await Product.find({})
         if(!products) {
